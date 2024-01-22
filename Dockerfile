@@ -5,7 +5,7 @@ FROM openjdk:17-alpine
 EXPOSE 8080
 
 # JAR 파일 복사
-ARG JAR_FILE=library-app-0.0.1-SNAPSHOT.jar
+ARG JAR_FILE=./build/libs/library-app-0.0.1-SNAPSHOT.jar
 COPY ${JAR_FILE} springAjang.jar
 
 # 컨테이너 실행시 실행될 명령어

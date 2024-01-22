@@ -8,3 +8,4 @@
 *.tmp
 
 ajangdb/mysql.sock
+ajangdb/
