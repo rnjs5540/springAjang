@@ -1,0 +1,10 @@
+.env
+# 로컬 설정 파일
+.DS_Store
+.gradle/
+
+# 기타 임시 파일
+*.log
+*.tmp
+
+ajangdb/mysql.sock

@@ -1,0 +1,40 @@
+version: "3"
+
+services:
+    database:
+        image: mysql:8.0
+        command: --default-authentication-plugin=mysql_native_password # MySQL 8 이상에서 필요할 수 있음
+        ports:
+            - "3306:3306"
+        networks:
+            - ajangnet
+        volumes:
+            - "./init.sql:/docker-entrypoint-initdb.d/init.sql"
+            - "./ajangdb:/var/lib/mysql"
+        restart: always
+        environment:
+            MYSQL_DATABASE: ${MYSQL_DATABASE}
+            MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+
+    application:
+        image: spring_ajang
+        depends_on:
+            - database
+        networks:
+            - ajangnet
+        #    volumes:
+        #      - mysqlvol
+        ports:
+            - 8080:8080
+        restart: always
+        environment:
+            - SPRING_DATASOURCE_URL=jdbc:mysql://database:3306/ajangdb
+            - SPRING_DATASOURCE_USERNAME=root
+            - SPRING_DATASOURCE_PASSWORD=Dydals123!
+            - SPRING_DATASOURCE_DRIVER-CLASS-NAME=com.mysql.cj.jdbc.Driver
+
+networks:
+    ajangnet:
+        driver: bridge
+volumes:
+    mysql: {}
