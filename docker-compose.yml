@@ -17,7 +17,7 @@ services:
             MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
 
     application:
-        image: spring_ajang
+        image: rnjs5540/spring_ajang:tagname
         depends_on:
             - database
         networks:
@@ -30,7 +30,7 @@ services:
         environment:
             - SPRING_DATASOURCE_URL=jdbc:mysql://database:3306/ajangdb
             - SPRING_DATASOURCE_USERNAME=root
-            - SPRING_DATASOURCE_PASSWORD=Dydals123!
+            - SPRING_DATASOURCE_PASSWORD=${MYSQL_ROOT_PASSWORD}
             - SPRING_DATASOURCE_DRIVER-CLASS-NAME=com.mysql.cj.jdbc.Driver
 
 networks:
