@@ -1,36 +1,55 @@
 package com.group.libraryapp.domain.user.loanhistory;
 
+import com.group.libraryapp.domain.book.Book;
 import com.group.libraryapp.domain.user.User;
+import java.time.LocalDate;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import lombok.Getter;
 
+@Getter
 @Entity
 public class UserLoanHistory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id = null;
-
+    private final Long id = null;
     @ManyToOne
+    @JoinColumn(name = "user_id")
     private User user;
-    private String bookName;
+    @ManyToOne
+    @JoinColumn(name = "book_id")
+    private Book book;
+    @Enumerated(EnumType.STRING)
+    private Type type;
+    private LocalDate created_date;
 
-    public String getBookName() {
-        return bookName;
+    public enum Type {
+        LOANED, RETURNED
     }
 
-    private boolean isReturn;
+//    private boolean isReturn;
 
     protected UserLoanHistory(){}
-    public UserLoanHistory(User user, String bookName) {
+    public UserLoanHistory(User user, Book book, LocalDate created_date) {
         this.user = user;
-        this.bookName = bookName;
-        this.isReturn = false;
+        this.book = book;
+        this.type = Type.LOANED;
+        if (created_date != null) {
+            this.created_date = created_date;
+        } else {
+            this.created_date = LocalDate.now();
+        }
     }
 
     public void doReturn() {
-        this.isReturn = true;
+        this.type = Type.RETURNED;
     }
+
+
 }

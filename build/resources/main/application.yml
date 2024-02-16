@@ -1,19 +1,49 @@
 spring:
-    datasource:
-        # url: "jdbc:mysql://localhost:3306/library"
-        url: "jdbc:mysql://database-1.chekusiyexqb.ap-northeast-2.rds.amazonaws.com"
-        # JavaDBConnector: db종류는 mysql, 컴퓨터는 localhost, 사용할 db는 library
-        username: "root"
-        password: "Dydals123!"
-        driver-class-name: com.mysql.cj.jdbc.Driver
-        # db에 접근할 떄 사용할 프로그램
-    jpa:
-        hibernate:
-            ddl-auto: none
-        properties:
-            hibernate:
-                show_sql: true # sql을 보여준다면 예쁘게 포매팅 할거?
-                format_sql: true # jpa로 sql을 날릴때 sql을 보여줄 것인가
-                dialect: org.hibernate.dialect.MySQL8Dialect
-                # dialect == 사투리
-                # db마다 조금씩 다른 sql을 조금씩 수정해줌
+  config:
+    activate:
+      on-profile: local
+      # 오 yaml은 키밸류래
+      # key: spring.config.activate.on-profile / val: dev
+      # 들여쓰기로 key의 중복 제거!
+  datasource:
+    url: "jdbc:h2:mem:library;MODE=MYSQL;NON_KEYWORDS=USER"
+    # h2 메모리버전, mysql과 비슷한 환경, user라는 단어를 예약어에서 빼서 테이블생성 가능하게
+    username: "root"
+    password: "Dydals123!"
+    driver-class-name: org.h2.Driver
+  jpa:
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
+        dialect: org.hibernate.dialect.H2Dialect
+  h2:
+    console:
+      enabled: true  # h2콘솔에 접근 가능
+      path: /h2-console  # 이 url로!
+
+
+---
+spring:
+  config:
+    activate:
+      on-profile: dev
+  datasource:
+    url: "jdbc:mysql://localhost:3306/library"
+    # JavaDBConnector: db종류는 mysql, 컴퓨터는 localhost, 사용할 db는 library
+    username: "root"
+    password: "Dydals123!"
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    # db에 접근할 떄 사용할 프로그램
+  jpa:
+    hibernate:
+      ddl-auto: none
+    properties:
+      hibernate:
+        show_sql: true  # sql을 보여준다면 예쁘게 포매팅 할거?
+        format_sql: true  # jpa로 sql을 날릴때 sql을 보여줄 것인가
+        dialect: org.hibernate.dialect.MySQL8Dialect
+        # dialect == 사투리
+        # db마다 조금씩 다른 sql을 조금씩 수정해줌

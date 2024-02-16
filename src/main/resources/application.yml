@@ -1,4 +1,35 @@
 spring:
+  config:
+    activate:
+      on-profile: local
+      # 오 yaml은 키밸류래
+      # key: spring.config.activate.on-profile / val: dev
+      # 들여쓰기로 key의 중복 제거!
+  datasource:
+    url: "jdbc:h2:mem:library;MODE=MYSQL;NON_KEYWORDS=USER"
+    # h2 메모리버전, mysql과 비슷한 환경, user라는 단어를 예약어에서 빼서 테이블생성 가능하게
+    username: "root"
+    password: "Dydals123!"
+    driver-class-name: org.h2.Driver
+  jpa:
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
+        dialect: org.hibernate.dialect.H2Dialect
+  h2:
+    console:
+      enabled: true  # h2콘솔에 접근 가능
+      path: /h2-console  # 이 url로!
+
+
+---
+spring:
+  config:
+    activate:
+      on-profile: dev
   datasource:
     url: "jdbc:mysql://localhost:3306/library"
     # JavaDBConnector: db종류는 mysql, 컴퓨터는 localhost, 사용할 db는 library

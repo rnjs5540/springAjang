@@ -1,7 +1,9 @@
 .env
-# 로컬 설정 파일
+
 .DS_Store
 .gradle/
+build/
+.idea/
 
 # 기타 임시 파일
 *.log

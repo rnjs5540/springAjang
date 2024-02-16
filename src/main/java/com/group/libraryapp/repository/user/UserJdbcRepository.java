@@ -1,7 +1,5 @@
 package com.group.libraryapp.repository.user;
 
-import com.group.libraryapp.dto.user.respond.UserResponse;
-import java.util.List;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -31,17 +29,17 @@ public class UserJdbcRepository {
         jdbcTemplate.update(sql, name, age);
     }
 
-    public List<UserResponse> getUsers() {
-        String sql = "select * from user";
-        // JdbcTemplate의 쿼리가 매개변수로 받은 sql을 수행
-        // => 그 결과로 받은 유저 정보를 new RowMapper로 UserResponse타입 객체로 변환
-        return jdbcTemplate.query(sql, (rs, rowNum) -> {
-            long id = rs.getLong("id");
-            String name = rs.getString("name");
-            int age = rs.getInt("age");
-            return new UserResponse(id, name, age);
-        });
-    }
+//    public List<UserResponse> getUsers() {
+//        String sql = "select * from user";
+//        // JdbcTemplate의 쿼리가 매개변수로 받은 sql을 수행
+//        // => 그 결과로 받은 유저 정보를 new RowMapper로 UserResponse타입 객체로 변환
+//        return jdbcTemplate.query(sql, (rs, rowNum) -> {
+//            long id = rs.getLong("id");
+//            String name = rs.getString("name");
+//            int age = rs.getInt("age");
+//            return new UserResponse(id, name, age);
+//        });
+//    }
 
     public void updateUserName(String name, long id) {
         String sql = "update user set name = ? where id = ?";

@@ -1,14 +1,14 @@
 package com.group.libraryapp.dto.book.request;
 
 public class BookLoanRequest {
-    private String userName;
-    private String bookName;
+    private Long userId;
+    private Long bookId;
 
-    public String getUserName() {
-        return userName;
+    public Long getUserId() {
+        return userId;
     }
 
-    public String getBookName() {
-        return bookName;
+    public Long getBookId() {
+        return bookId;
     }
 }

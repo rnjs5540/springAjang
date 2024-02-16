@@ -5,22 +5,29 @@ plugins {
 }
 
 group = 'com.example'
-version = '0.0.1-SNAPSHOT'
+version = '0.0.1-SNAPSHOT'  // jar파일 이름 마지막에 붙는 버전
 sourceCompatibility = '11'
 
 repositories {
-	mavenCentral()
+	mavenCentral()  // 프레임워크를 maven 중앙저장소라는 곳에서 가져와
 }
 
 dependencies {
+	implementation 'org.projectlombok:lombok'
+	annotationProcessor 'org.projectlombok:lombok'
+
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-	implementation 'org.springframework.boot:spring-boot-starter-web'
+	// org.springframework.boot가 만든 spring-boot-starter-data-jpa를 가져와라
 	runtimeOnly 'com.h2database:h2'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
 	runtimeOnly 'mysql:mysql-connector-java'
+	// implementation: 해당 의존성을 항시 사용한다.
+	// runtimeOnly: 코드를 실행할 때만 의존성을 사용한다.
 
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	// 테스트코드를 컴파일하거나 실행시킬 때 항시 사용한다.
 }
 
 tasks.named('test') {
-	useJUnitPlatform()
+	useJUnitPlatform()	// 테스트 코드를 작성할 때 사용하는 것
 }
